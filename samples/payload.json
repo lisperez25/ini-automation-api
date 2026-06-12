@@ -1,0 +1,19 @@
+{
+  "sheet_row": 2,
+  "razon_social": "CLIENTE DEMO",
+  "tipo": "ISDN DDE Plus",
+  "nombre_archivo": "cliente_demo",
+  "cabecera": "541148085700",
+  "vlan_dde": "210",
+  "ip_dde": "172.29.0,2",
+  "cidr_dde": "30",
+  "gateway_dde": "172.29.0.1",
+  "vlan_gestion": "211",
+  "ip_gestion": "172.20.104.138",
+  "cidr_gestion": "30",
+  "dns_teco": "172.20.101.8",
+  "gateway_gestion": "172.20.104.137",
+  "ip_sbc": "190.224.166.135",
+  "red_sbc": "190.224.166.128",
+  "cidr_sbc": "28"
+}
