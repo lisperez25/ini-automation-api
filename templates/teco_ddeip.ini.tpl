@@ -161,8 +161,8 @@ IpProfile 0 = "IP_Profile_1", 1, "AudioCodersGroups_0", 2, 10, 10, 46, 24, 0, 0,
 
 [ CpMediaRealm ]
 
-FORMAT Index = MediaRealmName, IPv4IF, IPv6IF, RemoteIPv4IF, RemoteIPv6IF, PortRangeStart, MediaSessionLeg, PortRangeEnd, TCPPortRangeStart, TCPPortRangeEnd, IsDefault, QoeProfile, BWProfile, TopologyLocation, UsedByRoutingServer;
-CpMediaRealm 0 = "DefaultRealm", "DDEIP", "", "", "", 6000, 5953, 65529, 0, 0, 1, "", "", 0, 0;
+FORMAT Index = MediaRealmName, IPv4IF, IPv6IF, RemoteIPv4IF, RemoteIPv6IF, PortRangeStart, MediaSessionLeg, PortRangeEnd, IsDefault, QoeProfile, BWProfile, TopologyLocation, UsedByRoutingServer;
+CpMediaRealm 0 = "DefaultRealm", "DDEIP", "", "", "", 6000, 5953, 65529, 1, "", "", 0, 0;
 
 [ \CpMediaRealm ]
 
@@ -225,9 +225,16 @@ TrunkGroup 0 = 1, 0, 1, 31, "{{cabecera}}", "TelProfile_1", 0, 2;
 [ PstnPrefix ]
 
 FORMAT Index = RouteName, DestPrefix, TrunkGroupId, SourcePrefix, SourceAddress, ProfileName, SrcIPGroupName, DestHostPrefix, SrcHostPrefix, SrcSIPInterfaceName, TrunkId, CallSetupRulesSetId, DestType, DestTags, SrcTags;
-PstnPrefix 0 = "", "*", 1, "*", "{{ip_sbc}}", "", "", "*", "*", "SIPInterface_0", 1, -1, 0, "", "";
+PstnPrefix 0 = "", "*", 1, "*", "{{ip_sbc}}", "IP_Profile_1", "", "*", "*", "SIPInterface_0", 1, -1, 0, "", "";
 
 [ \PstnPrefix ]
+
+[ StaticRouteTable ]
+
+FORMAT Index = DestinationIP, PrefixLength, DeviceName, GatewayIP, Metric, DestinationName;
+StaticRouteTable 0 = "{{red_sbc}}", {{cidr_sbc}}, "", "{{gateway_dde}}", "", "";
+
+[ \StaticRouteTable ]
 
 [ ProxyIp ]
 
@@ -284,10 +291,3 @@ HTTPDirectives 0 = "HTTP Context Directives", 0, "limit_conn AcZone 100;";
 HTTPDirectives 1 = "HTTP Context Directives", 1, "limit_rate 0;";
 
 [ \HTTPDirectives ]
-
-[ StaticRouteTable ]
-
-FORMAT Index = Destination, PrefixLength, DeviceName, Gateway, Description, PreferredSourceInterfaceName;
-StaticRouteTable 0 = {{red_sbc}}, {{cidr_sbc}}, "", {{gateway_dde}}, "", "";
-
-[ \StaticRouteTable ]

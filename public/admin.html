@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Panel Generador de INIs</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Panel Generador de INIs</h1>
+
+    <section class="card">
+      <h2>Estado API</h2>
+      <div id="api-status">Cargando...</div>
+    </section>
+
+    <section class="card">
+      <h2>Túnel</h2>
+      <div><strong>Estado:</strong> <span id="tunnel-running">—</span></div>
+      <div><strong>URL pública:</strong> <a id="tunnel-url" href="#">—</a></div>
+      <div><strong>Endpoint Apps Script:</strong> <span id="tunnel-endpoint">—</span></div>
+      <div class="buttons">
+        <button id="start-btn">Iniciar túnel</button>
+        <button id="stop-btn">Detener túnel</button>
+        <button id="refresh-btn">Actualizar</button>
+        <button id="copy-btn">Copiar endpoint</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Últimos logs</h2>
+      <pre id="logs">Esperando logs...</pre>
+    </section>
+  </main>
+
+  <script src="/admin.js"></script>
+</body>
+</html>

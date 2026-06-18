@@ -1,11 +1,16 @@
 require("dotenv").config();
 
 const express = require("express");
+const path = require("path");
 const { validatePayload } = require("./validators");
 const { generateIni } = require("./iniService");
+const tunnelManager = require("./tunnelManager");
 
 const app = express();
 app.use(express.json({ limit: "1mb" }));
+// servir archivos estáticos para la UI de administración
+const publicDir = path.resolve(__dirname, '..', 'public');
+app.use(express.static(publicDir));
 
 function checkApiKey(req, res, next) {
   const expectedApiKey = process.env.API_KEY;
@@ -80,6 +85,39 @@ app.post("/api/v1/inis/generate", checkApiKey, (req, res) => {
       message: error.message,
       sheet_row: req.body.sheet_row || null
     });
+  }
+});
+
+// Panel de administración
+app.get('/admin', (req, res) => {
+  return res.sendFile(path.join(publicDir, 'admin.html'));
+});
+
+// Tunnel API
+app.get('/api/v1/tunnel/status', (req, res) => {
+  try {
+    const status = tunnelManager.getTunnelStatus();
+    return res.json({ status: 'OK', tunnel: status });
+  } catch (err) {
+    return res.status(500).json({ status: 'ERROR', message: err.message });
+  }
+});
+
+app.post('/api/v1/tunnel/start', (req, res) => {
+  try {
+    const status = tunnelManager.startTunnel();
+    return res.json({ status: 'OK', tunnel: status });
+  } catch (err) {
+    return res.status(500).json({ status: 'ERROR', message: err.message });
+  }
+});
+
+app.post('/api/v1/tunnel/stop', (req, res) => {
+  try {
+    const status = tunnelManager.stopTunnel();
+    return res.json({ status: 'OK', tunnel: status });
+  } catch (err) {
+    return res.status(500).json({ status: 'ERROR', message: err.message });
   }
 });
 
